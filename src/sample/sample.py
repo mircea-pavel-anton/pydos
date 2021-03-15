@@ -4,10 +4,10 @@ import sounddevice as sd
 import matplotlib.pyplot as plot
 import numpy as np
 
-signal_freq = 1000              # Hz
-signal_duration = 2             # sec
-sample_rate = 44100             # Hz
-sample_time = 1 / sample_rate   # sec
+signal_freq = 1000            # Hz
+signal_duration = 2           # sec
+sample_rate = 44100           # Hz
+sample_time = 1 / sample_rate # sec
 sample_count = sample_rate * signal_duration
 
 # Generate the time vector, containing @sample_count items
