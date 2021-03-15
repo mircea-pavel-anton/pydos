@@ -17,7 +17,7 @@ This emulates the process of converting digital data into an analog signal, send
 
 ### The "how"
 
-By taking a look at `config.py` under `src/`, we can notice some key components that help us building the sine wave:
+By taking a look at `config.py` under `src/`, we can notice some key components that help us build the sine wave:
 
 1. `sample_rate = 44100 # [Hz]`: the sample rate of the wave
 2. `bit_duration = 1 # [s]`: the time duration allocated for each bit into the output signal
@@ -43,13 +43,13 @@ bits = [1, 0, 1, 1]
 
 The program will generate the following sine wave:
 
-<img src="res/encoded_signal.png" alt="drawing" width="450"/>
+<img src="res/encoded_signal.png" alt="drawing" width="650" height="250"/>
 
 We can easily observe the original bit array within our signal, since the 2 used frequencies are far apart enough for it to be noticeable.
 
 Next, this signal is played by the sound card and recorded back via the microphone. The previous wave, recorded by a my microphone looks like this:
 
-<img src="res/recorded_signal.png" alt="drawing" width="450"/>
+<img src="res/recorded_signal.png" alt="drawing" width="650" height="250"/>
 
 We can notice quite a bit of noise and variance, but it is still easily recognizable.
 
