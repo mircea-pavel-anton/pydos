@@ -1,6 +1,7 @@
 import sounddevice as sd
 import matplotlib.pyplot as plot
 import numpy as np
+from config import sample_rate, signal_high, signal_low
 
 def truncate(n):
     return (int) ((n * 1000) / 1000)
