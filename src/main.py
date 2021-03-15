@@ -1,3 +1,4 @@
+from decode import decode
 from encode import encode
 from config import sample_rate
 import sounddevice as sd
@@ -11,6 +12,13 @@ signal = encode(bits)
 # Play the audio signal and record it back into @rec
 rec = sd.playrec(signal, sample_rate, channels=2)
 
-# Prompt the user for keyboard input as otherwise the
-# signal won't play out
-input("Press ENTER to continue")
+# Wait for the audio signal to play out completely
+sd.wait()
+
+# Decode the recorded audio signal back into bits
+bits_back = decode(rec)
+
+if (bits == bits_back):
+	print("yay")
+else:
+	print("nay")
