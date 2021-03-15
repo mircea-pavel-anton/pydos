@@ -127,3 +127,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Ignore VENV files
+bin/
+include/
+lib/
+lib64/
+share/
+pyvenv.cfg
+lib64
