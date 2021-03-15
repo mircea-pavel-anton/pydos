@@ -38,24 +38,32 @@ For example, assuming the already mentioned bits for input:
 ``` python
 bits = [1, 0, 1, 1]
 ```
-
-<img src="res/bit_input.png" alt="drawing" width="450"/>
+<p align="center">
+  <img src="res/bit_input.png" alt="drawing" width="450"/>
+</p>
 
 The program will generate the following sine wave:
 
-<img src="res/encoded_signal.png" alt="drawing" width="650" height="250"/>
+<p align="center">
+  <img src="res/encoded_signal.png" alt="drawing" width="650" height="250"/>
+</p>
 
 We can easily observe the original bit array within our signal, since the 2 used frequencies are far apart enough for it to be noticeable.
 
 Next, this signal is played by the sound card and recorded back via the microphone. The previous wave, recorded by a my microphone looks like this:
 
-<img src="res/recorded_signal.png" alt="drawing" width="650" height="250"/>
+<p align="center">
+  <img src="res/recorded_signal.png" alt="drawing" width="650" height="250"/>
+</p>
 
 We can notice quite a bit of noise and variance, but it is still easily recognizable.
 
 Next, a the `decode` method will reconstruct the bit array by analyzing the frequencies of each section of our signal, producing the following signal:
 
-<img src="res/decoded_signal.png" alt="drawing" width="450"/>
+<p align="center">
+  <img src="res/decoded_signal.png" alt="drawing" width="450"/>
+</p>
 
 ---
 
+_a project by Mircea-Pavel Anton (Mike Anthony)_
