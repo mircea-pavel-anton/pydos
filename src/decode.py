@@ -44,12 +44,14 @@ def decode(signal):
 			if (signs_differ(bit_signal[j-1][0], bit_signal[j][0])):
 				freq = freq + 1
 
+		print("Section " + str(i) + " frequency: " + str(freq) + " Hz")
+
 		# If the calculated frequency is closer to @freq_high, assume
 		# the bit was 1, otherwise, it was 0
 		# NOTE: the frequencies are extremely unlikely to match, i.e. @freq will
 		# almost never be equal to either @freq_high or @freq_low, so we
 		# compare the distances between them
-		if (absolute(freq - freq_high) > absolute(freq - freq_low)):
+		if (freq < 0.8 * freq_high):
 			bits.append(0)
 		else:
 			bits.append(1)
