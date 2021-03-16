@@ -6,7 +6,7 @@ import sounddevice as sd
 import numpy as np
 import matplotlib.pyplot as plot
 
-def draw_bits(bits):
+def draw_bits(bits, title):
 	# The time vector, containing @sample_rate elements from
 	# 0 to the number of bits
 	t=np.arange(0, len(bits), 1/sample_rate)
@@ -19,13 +19,14 @@ def draw_bits(bits):
 		u = u + sample_rate * [bit]
 
 	# Finally, draw the signal
-	plot.figure()
+	fig = plot.figure()
+	fig.suptitle(title, fontsize=24)
 	plot.plot(t, u)
 	plot.xlabel("t[s]")
 	plot.ylabel("bit value")
 	plot.show()
 
-def draw_wave(signal):
+def draw_wave(signal, title):
 	# The duration of our signal, in seconds
 	signal_duration = (int)(len(signal) / sample_rate) # [s]
 
@@ -37,7 +38,8 @@ def draw_wave(signal):
 	time = np.linspace(0, signal_duration, sample_count)
 
 	# Finally, draw the graph
-	plot.figure()
+	fig = plot.figure()
+	fig.suptitle(title, fontsize=24)
 	plot.plot(time, signal)
 	plot.show()
 
@@ -60,13 +62,13 @@ if __name__ == "__main__":
 	print("Input data: " + str(bits))
 
 	# Plot the given bits
-	draw_bits(bits)
+	draw_bits(bits, "Input bit signal")
 
 	# Convert the input data into an audio signal
 	signal = encode(bits)
 
 	# Draw the generated signal
-	draw_wave(signal)
+	draw_wave(signal, "Generated audio wave")
 
 	# Play the audio signal and record it back into @rec
 	rec = sd.playrec(signal, sample_rate, channels=2)
@@ -75,13 +77,13 @@ if __name__ == "__main__":
 	sd.wait()
 
 	# Draw the recorded signal
-	draw_wave(rec)
+	draw_wave(rec, "Recorded audio wave")
 
 	# Decode the recorded audio signal back into bits
 	bits_back = decode(rec)
 
 	# Draw the decoded bit array
-	draw_bits(bits_back)
+	draw_bits(bits_back, "Output bit signal")
 
 	# Print the bit array
 	print("Output data: " + str(bits_back))
