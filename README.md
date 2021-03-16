@@ -31,6 +31,20 @@ As such, we can deduce that the way this program builds the soundwave is by conc
 | 0 | 100 Hz | <img src="res/signal_low.png" alt="drawing" width="350"/> |
 | 1 | 1 kHz | <img src="res/signal_high.png" alt="drawing" width="350"/> |
 
+## Obstacles along the way
+
+- Signal Interference
+
+> Interference from background noise in the room may alter the recorded soundwave to a degree where it is virtually unusable. This can easily be observer by looking at the console output after running the program. Very rarely, if ever, we will notice the frequencies from the recorded signal to match the 100/1000 Hz we generated.
+
+- The quality of the emitter and receiver hardware
+
+> The quality of the signal is highly dependent on the quality of the equipment at both ends. For example, a small low-end speaker may represent the signal less accurately, and a low-end microphone will not record the signal perfectly. These imperfections may just add up enough for the recorded signal to be different enough from the generated signal that the bits may be misinterpreted.
+
+- Distance between emitter and receiver
+
+> The distance between the speaker and the microphone matters, i.e., the distance over which we have to send the signal is very relevant, as a higher distance requires, in this case, a higher volume set on the speakers for the microphone to reliably pick it up.
+
 ## Example
 
 For example, assuming the already mentioned bits for input:
