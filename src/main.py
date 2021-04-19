@@ -34,15 +34,13 @@ if __name__ == "__main__":
 
 	# Play the audio signal and record it back into @rec
 	rec = sd.playrec(signal_mod, sample_rate, channels=1)
-
-	# Wait for the audio signal to play out completely
 	sd.wait()
 
 	# Demodulate the recorded signal
 	rec_demod = demodulate( rec )
 
 	# Decode the recorded audio signal back into bits
-	bits_back = decode(rec)
+	bits_back = decode(rec_demod)
 
 	# Print the bit array
 	print("Output data: " + str(bits_back))
