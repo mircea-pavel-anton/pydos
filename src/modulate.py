@@ -18,8 +18,8 @@ def modulate(s):
 	return sm
 
 def demodulate(s):
-	filter_freq = [0, 50, 100, 1000, 1050, 5000] # cutoff frequencies for the filter
-	filter_amp = [0, 1, 0] # The amplitudes for the filter
+	filter_freq = [0, 1000, 1500, 5000] # cutoff frequencies for the filter
+	filter_amp = [1, 0] # The amplitudes for the filter
 	filter_size = 100 # filter size
 
 	filter = signal.remez(filter_size - 1, filter_freq, filter_amp, Hz=sample_rate)
