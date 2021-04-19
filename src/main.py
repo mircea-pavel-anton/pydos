@@ -1,29 +1,16 @@
-import sys
 import numpy as np
 import matplotlib.pyplot as plot
 import sounddevice as sd
 
 from encode import encode, decode
-from config import sample_rate
 from plot import plot_bits, plot_T, plot_S
+from config import sample_rate
 from modulate import modulate, demodulate
-
-def get_input_data():
-	# Get the input data, an array of bits from CLI arguments
-	bits = []
-	for i in range(1, len(sys.argv)):
-		if (sys.argv[i].isdigit()):
-			bit = (int)(sys.argv[i])
-			if (bit == 1 or bit == 0):
-				bits.append(bit)
-			else:
-				print("Invalid input data. ABORT")
-				sys.exit()
-	return bits
+from utils import get_data_bits
 
 if __name__ == "__main__":
 	# Get the input data, an array of bits from CLI arguments
-	bits = get_input_data()
+	bits = get_data_bits()
 	print("Input data: " + str(bits))
 
 	# Convert the input data into an audio signal
