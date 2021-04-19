@@ -1,47 +1,12 @@
-from decode import decode
-from encode import encode
-from config import sample_rate
 import sys
-import sounddevice as sd
 import numpy as np
 import matplotlib.pyplot as plot
+import sounddevice as sd
 
-def draw_bits(bits, title):
-	# The time vector, containing @sample_rate elements from
-	# 0 to the number of bits
-	t=np.arange(0, len(bits), 1/sample_rate)
-
-	# The square wave signal we will plot
-	u = []
-
-	# For each bit in the @bits array, add elements to the output signal @u
-	for bit in bits:
-		u = u + sample_rate * [bit]
-
-	# Finally, draw the signal
-	fig = plot.figure()
-	fig.suptitle(title, fontsize=24)
-	plot.plot(t, u)
-	plot.xlabel("t[s]")
-	plot.ylabel("bit value")
-	plot.show()
-
-def draw_wave(signal, title):
-	# The duration of our signal, in seconds
-	signal_duration = (int)(len(signal) / sample_rate) # [s]
-
-	# The number of samples within our signal
-	sample_count = sample_rate * signal_duration
-
-	# The time vector used to represent our signal:
-	# @sample_count samples, evenly distributed from 0 to @signal_duration.
-	time = np.linspace(0, signal_duration, sample_count)
-
-	# Finally, draw the graph
-	fig = plot.figure()
-	fig.suptitle(title, fontsize=24)
-	plot.plot(time, signal)
-	plot.show()
+from encode import encode, decode
+from config import sample_rate
+from plot import plot_bits, plot_T, plot_S
+from modulate import modulate, demodulate
 
 def get_input_data():
 	# Get the input data, an array of bits from CLI arguments
@@ -61,34 +26,49 @@ if __name__ == "__main__":
 	bits = get_input_data()
 	print("Input data: " + str(bits))
 
-	# Plot the given bits
-	draw_bits(bits, "Input bit signal")
-
 	# Convert the input data into an audio signal
-	signal = encode(bits)
+	signal = np.array( encode(bits) )
 
-	# Draw the generated signal
-	draw_wave(signal, "Generated audio wave")
+	# Modulate the signal
+	signal_mod = modulate ( signal )
 
 	# Play the audio signal and record it back into @rec
-	rec = sd.playrec(signal, sample_rate, channels=2)
+	rec = sd.playrec(signal_mod, sample_rate, channels=1)
 
 	# Wait for the audio signal to play out completely
 	sd.wait()
 
-	# Draw the recorded signal
-	draw_wave(rec, "Recorded audio wave")
+	# Demodulate the recorded signal
+	rec_demod = demodulate( rec )
 
 	# Decode the recorded audio signal back into bits
 	bits_back = decode(rec)
 
-	# Draw the decoded bit array
-	draw_bits(bits_back, "Output bit signal")
-
 	# Print the bit array
 	print("Output data: " + str(bits_back))
 
-	if (bits == bits_back):
-		print("yay")
-	else:
-		print("nay")
+	# Finally, plot out all the signals (in time)
+
+	# Plot the input side
+	plot.figure()
+	plot.subplot(3, 1, 1)
+	plot_bits(bits, "Input bit signal")
+	# Plot the generated sound wave
+	plot.subplot(3, 1, 2)
+	plot_T(1/sample_rate, signal, "Message signal")
+	# Plot the modulated sound wave
+	plot.subplot(3, 1, 3)
+	plot_T(1/sample_rate, signal_mod, "Modulated signal")
+
+	# Plot the output side
+	plot.figure()
+	plot.subplot(3, 1, 1)
+	plot_T(1/sample_rate, rec, "Received signal")
+	# Plot the recorded signal, demodulated
+	plot.subplot(3, 1, 2)
+	plot_T(1/sample_rate, rec_demod, "Demodulated signal")
+	# Plot the decoded data bits
+	plot.subplot(3, 1, 3)
+	plot_bits(bits_back, "Decoded bit signal")
+	plot.show()
+	plot.tight_layout()
