@@ -23,6 +23,8 @@ def extract_bit_signal(signal, i):
 
 def decode(signal):
 	bits = []
+	freqs = []
+	avg_freq = 0
 	signal_duration = (int)(len(signal) / sample_rate) # [s]
 
 	# For each sample in the recorded signal, check if it represents a pass through
@@ -45,7 +47,7 @@ def decode(signal):
 		# For each sample in our sub-signal, check if 2 consecutive samples
 		# pass through Ox. If they do, increment @freq
 		for j in range(1, len(bit_signal)):
-			if (signs_differ(bit_signal[j-1][0], bit_signal[j][0])):
+			if (signs_differ(bit_signal[j-1], bit_signal[j])):
 				freq = freq + 1
 
 		print("Section " + str(i) + " frequency: " + str(freq) + " Hz")
@@ -55,10 +57,15 @@ def decode(signal):
 		# NOTE: the frequencies are extremely unlikely to match, i.e. @freq will
 		# almost never be equal to either @freq_high or @freq_low, so we
 		# compare the distances between them
-		if (freq < 0.75 * freq_high):
-			bits.append(0)
-		else:
+		freqs.append(freq)
+		avg_freq += freq
+
+	avg_freq = avg_freq / len(freqs)
+	for i in range(0, len(freqs)):
+		if (freqs[i] > avg_freq):
 			bits.append(1)
+		else:
+			bits.append(0)
 
 	return bits
 
