@@ -10,7 +10,7 @@ def modulate(s):
 
 	# Carrier signal
 	fc = 2500 # carrier signal frequency [Hz]
-	sc = np.cos(2 * np.pi * fc * time) # carrier signal
+	sc = 2 * np.cos(2 * np.pi * fc * time) # carrier signal
 
 	# Modulated signal
 	sm = sc * s + sc
@@ -18,7 +18,7 @@ def modulate(s):
 	return sm
 
 def demodulate(s):
-	filter_freq = [0, 1000, 1500, 5000] # cutoff frequencies for the filter
+	filter_freq = [0, 2000, 3000, sample_rate/2] # cutoff frequencies for the filter
 	filter_amp = [1, 0] # The amplitudes for the filter
 	filter_size = 100 # filter size
 
