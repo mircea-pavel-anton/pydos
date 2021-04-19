@@ -1,5 +1,5 @@
 run:
-	@ python3 src/main.py
+	@ python3 src/main.py 1 0 1
 
 clean:
 	@ rm -rf ./env
