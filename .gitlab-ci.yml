@@ -3,6 +3,8 @@ image: python:3.9-slim-buster
 
 test:
   stage: test
+  before_script:
+    - apt update && apt -y install make
   script:
     - make test
   only:
