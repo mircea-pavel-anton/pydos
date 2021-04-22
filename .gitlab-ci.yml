@@ -5,6 +5,7 @@ test:
   stage: test
   before_script:
     - apt update && apt -y install make
+    - make install
   script:
     - make test
   only:
