@@ -8,7 +8,7 @@ from config import sample_rate
 from modulate import modulate, demodulate
 from utils import get_data_bits
 
-if __name__ == "__main__":
+def main():
 	# Get the input data, an array of bits from CLI arguments
 	bits = get_data_bits()
 	print("Input data: " + str(bits))
@@ -57,3 +57,6 @@ if __name__ == "__main__":
 	plot_bits(bits_back, "Decoded bit signal")
 	plot.show()
 	plot.tight_layout()
+
+if __name__ == "__main__":
+	main()
