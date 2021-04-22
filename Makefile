@@ -1,5 +1,8 @@
-run:
+sample:
 	@ python3 src/main.py 1 0 1
+
+test:
+	@ python3 tests/main.py 1 0 1 1 0 1 0 1 1 1 0 1 0 1
 
 clean:
 	@ rm -rf ./env
