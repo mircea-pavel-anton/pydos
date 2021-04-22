@@ -1,0 +1,9 @@
+# requiring the environment of python 3.9
+image: python:3.9-slim-buster
+
+test:
+  stage: test
+  script:
+    - make test
+  only:
+    - master
