@@ -1,9 +1,8 @@
 import numpy as np
-import matplotlib.pyplot as plot
-import sounddevice as sd
+import sys as sys
 
+sys.path.insert(1, 'src')
 from encode import encode, decode
-from plot import plot_bits, plot_T, plot_S
 from config import sample_rate
 from modulate import modulate, demodulate
 from utils import get_data_bits
@@ -11,7 +10,6 @@ from utils import get_data_bits
 if __name__ == "__main__":
 	# Get the input data, an array of bits from CLI arguments
 	bits = get_data_bits()
-	print("Input data: " + str(bits))
 
 	# Convert the input data into an audio signal
 	signal = np.array( encode(bits) )
@@ -29,4 +27,7 @@ if __name__ == "__main__":
 	# Decode the recorded audio signal back into bits
 	bits_back = decode(rec_demod)
 
-    return (bits_back == bits)
+	if (bits == bits_back):
+		exit(0)
+	else:
+		exit(1)
